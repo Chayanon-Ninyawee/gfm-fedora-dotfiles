@@ -59,5 +59,16 @@ if [ -d "$PLASMOID_DIR" ]; then
     done
 fi
 
+echo "Setting wallpaper..."
+WALLPAPER="$HOME/.config/wallpapers/DaydreamSkytrain.png"
+qdbus-qt6 org.kde.plasmashell /PlasmaShell evaluateScript "
+var desktops = desktops();
+for (i=0; i<desktops.length; i++) {
+  var d = desktops[i];
+  d.wallpaperPlugin = 'org.kde.image';
+  d.currentConfigGroup = ['Wallpaper','org.kde.image','General'];
+  d.writeConfig('Image', 'file://$WALLPAPER');
+}"
+
 echo ">>> Setup complete!"
 echo ">>> Recommended: Reboot your system."
