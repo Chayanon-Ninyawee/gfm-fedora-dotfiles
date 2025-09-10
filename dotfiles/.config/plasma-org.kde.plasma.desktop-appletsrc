@@ -33,7 +33,7 @@ positions={"1829x1029":[],"1920x1080":["2","17","desktop:/image-files","1","0","
 sortMode=-1
 
 [Containments][1][Wallpaper][org.kde.image][General]
-Image=/home/garfieldcmix/.config/wallpapers/DaydreamSkytrain.png
+Image=file:///home/garfieldcmix/.local/share/wallpapers/DaydreamSkytrain.png
 SlidePaths=/home/garfieldcmix/.local/share/wallpapers/,/usr/share/wallpapers/
 
 [Containments][2]
@@ -404,6 +404,9 @@ wallpaperplugin=org.kde.image
 
 [Containments][27][General]
 positions={"1920x1080":[]}
+
+[Containments][27][Wallpaper][org.kde.image][General]
+Image=file:///home/garfieldcmix/.local/share/wallpapers/DaydreamSkytrain.png
 
 [ScreenMapping]
 itemsOnDisabledScreens=

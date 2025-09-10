@@ -73,5 +73,37 @@ cp -rf "$LAYAN_LOOKFEEL_DIR" "$LOOKFEEL_DIR"
 cp -rf "$LAYAN_PLASMA_DIR" "$PLASMA_DIR"
 cp -rf "$TELA_ICON_DIR" "$ICON_DIR"
 
+echo "Setting widgets for all desktops..."
+qdbus-qt6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
+var allDesktops = desktops();
+for (var i = 0; i < allDesktops.length; i++) {
+    var desktop = allDesktops[i];
+    if (desktop.formFactor === 0) {
+        var widget = desktop.addWidget('org.kde.plasma.mediacontroller');
+        widget.currentConfigGroup = ['General'];
+        widget.writeConfig('PreloadWeight', '100');
+        widget.writeConfig('popupHeight', '360');
+        widget.writeConfig('popupWidth', '360');
+    }
+}
+"
+
+echo "Setting wallpaper for all desktops..."
+SCRIPT_WALLPAPER="$SCRIPT_DIR/wallpapers/DaydreamSkytrain.png"
+WALLPAPER_DIR="$HOME/.local/share/wallpapers"
+WALLPAPER="$WALLPAPER_DIR/DaydreamSkytrain.png"
+[[ ! -d ${WALLPAPER_DIR} ]] && mkdir -p ${WALLPAPER_DIR}
+cp -f "$SCRIPT_WALLPAPER" "$WALLPAPER_DIR"
+
+qdbus-qt6 org.kde.plasmashell /PlasmaShell evaluateScript "
+var desktops = desktops();
+for (i=0;i<desktops.length;i++) {
+  var d = desktops[i];
+  d.wallpaperPlugin = 'org.kde.image';
+  d.currentConfigGroup = ['Wallpaper','org.kde.image','General'];
+  d.writeConfig('Image', 'file://$WALLPAPER');
+}
+"
+
 echo ">>> Setup complete!"
 echo ">>> Recommended: Reboot your system."
