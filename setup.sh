@@ -62,12 +62,16 @@ fi
 echo "Installing Layan Plasma global theme from $LAYAN_DIR..."
 LAYAN_LOOKFEEL_DIR="$SCRIPT_DIR/look-and-feel/com.github.vinceliuice.Layan"
 LAYAN_PLASMA_DIR="$SCRIPT_DIR/desktoptheme/Layan"
+TELA_ICON_DIR="$SCRIPT_DIR/icons/Tela"
 LOOKFEEL_DIR="$HOME/.local/share/plasma/look-and-feel"
 PLASMA_DIR="$HOME/.local/share/plasma/desktoptheme"
+ICON_DIR="$HOME/.local/share/icons"
 [[ ! -d ${PLASMA_DIR} ]] && mkdir -p ${PLASMA_DIR}
 [[ ! -d ${LOOKFEEL_DIR} ]] && mkdir -p ${LOOKFEEL_DIR}
+[[ ! -d ${ICON_DIR} ]] && mkdir -p ${ICON_DIR}
 cp -rf "$LAYAN_LOOKFEEL_DIR" "$LOOKFEEL_DIR"
 cp -rf "$LAYAN_PLASMA_DIR" "$PLASMA_DIR"
+cp -rf "$TELA_ICON_DIR" "$ICON_DIR"
 
 echo ">>> Setup complete!"
 echo ">>> Recommended: Reboot your system."
