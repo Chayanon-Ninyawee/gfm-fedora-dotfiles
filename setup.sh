@@ -82,12 +82,12 @@ qdbus-qt6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
 var allDesktops = desktops();
 for (var i = 0; i < allDesktops.length; i++) {
     var desktop = allDesktops[i];
-    if (desktop.formFactor === 0) {
-        var widget = desktop.addWidget('org.kde.plasma.mediacontroller');
+
+    // Check if mediacontroller already exists
+    var widgets = desktop.widgets('org.kde.plasma.mediacontroller');
+    if (widgets.length == 0) {
+        var widget = desktop.addWidget('org.kde.plasma.mediacontroller', 1280, 16, 640, 192);
         widget.currentConfigGroup = ['General'];
-        widget.writeConfig('PreloadWeight', '100');
-        widget.writeConfig('popupHeight', '360');
-        widget.writeConfig('popupWidth', '360');
     }
 }
 "
