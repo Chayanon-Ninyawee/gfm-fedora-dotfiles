@@ -3,6 +3,10 @@
 
 set -e
 
+# --- Detect script directory ---
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+echo "Script directory detected as: $SCRIPT_DIR"
+
 echo ">>> Updating system..."
 sudo dnf -y upgrade --refresh
 
@@ -43,8 +47,17 @@ fi
 echo "Installing essential packages..."
 sudo dnf install -y git wget curl stow
 sudo dnf install -y nvim tmux
-sudo dnf install -y kvantum
+sudo dnf install -y kvantum kf5-plasma
 sudo dnf install -y fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool fcitx5-mozc
+
+echo "Installing Plasma applets..."
+PLASMOID_DIR="$SCRIPT_DIR/plasmoids"
+if [ -d "$PLASMOID_DIR" ]; then
+    for file in "$PLASMOID_DIR"/*.plasmoid; do
+        echo "Installing $file..."
+        plasmapkg2 --install "$file" || echo "Failed to install $file"
+    done
+fi
 
 echo ">>> Setup complete!"
 echo ">>> Recommended: Reboot your system."
