@@ -51,7 +51,7 @@ sudo dnf install -y kvantum kf5-plasma
 sudo dnf install -y fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool fcitx5-mozc
 
 echo "Installing Plasma applets..."
-PLASMOID_DIR="$SCRIPT_DIR/plasmoids"
+PLASMOID_DIR="$SCRIPT_DIR/plasma/plasmoids"
 if [ -d "$PLASMOID_DIR" ]; then
     for file in "$PLASMOID_DIR"/*.plasmoid; do
         echo "Installing $file..."
@@ -60,8 +60,8 @@ if [ -d "$PLASMOID_DIR" ]; then
 fi
 
 echo "Installing Layan Plasma global theme from $LAYAN_DIR..."
-LAYAN_LOOKFEEL_DIR="$SCRIPT_DIR/look-and-feel/com.github.vinceliuice.Layan"
-LAYAN_PLASMA_DIR="$SCRIPT_DIR/desktoptheme/Layan"
+LAYAN_LOOKFEEL_DIR="$SCRIPT_DIR/plasma/look-and-feel/com.github.vinceliuice.Layan"
+LAYAN_PLASMA_DIR="$SCRIPT_DIR/plasma/desktoptheme/Layan"
 TELA_ICON_DIR="$SCRIPT_DIR/icons/Tela"
 LOOKFEEL_DIR="$HOME/.local/share/plasma/look-and-feel"
 PLASMA_DIR="$HOME/.local/share/plasma/desktoptheme"
