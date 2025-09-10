@@ -5,8 +5,8 @@ RightButton;NoModifier=org.kde.contextmenu
 RightButton;NoModifier=org.kde.contextmenu
 
 [Containments][1]
-ItemGeometries-1920x1080=Applet-51:1040,16,880,192,0;
-ItemGeometriesHorizontal=Applet-51:1040,16,880,192,0;
+ItemGeometries-1920x1080=Applet-51:1298.07,16,624,192,0;
+ItemGeometriesHorizontal=Applet-51:1298.07,16,624,192,0;
 activityId=eef7f695-2299-4d6b-b9b1-8c54a84c2b62
 formfactor=0
 immutability=1
@@ -20,13 +20,21 @@ immutability=1
 plugin=org.kde.plasma.mediacontroller
 
 [Containments][1][Applets][51][Configuration]
-PreloadWeight=90
+PreloadWeight=100
 popupHeight=360
 popupWidth=360
+
+[Containments][1][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
 
 [Containments][1][General]
 positions={"1829x1029":[],"1920x1080":["2","17","desktop:/image-files","1","0","desktop:/audiosource","0","0"]}
 sortMode=-1
+
+[Containments][1][Wallpaper][org.kde.image][General]
+Image=/home/garfieldcmix/.config/wallpapers/DaydreamSkytrain.png
+SlidePaths=/home/garfieldcmix/.local/share/wallpapers/,/usr/share/wallpapers/
 
 [Containments][2]
 activityId=
