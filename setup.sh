@@ -59,16 +59,15 @@ if [ -d "$PLASMOID_DIR" ]; then
     done
 fi
 
-echo "Setting wallpaper..."
-WALLPAPER="$HOME/.config/wallpapers/DaydreamSkytrain.png"
-qdbus-qt6 org.kde.plasmashell /PlasmaShell evaluateScript "
-var desktops = desktops();
-for (i=0; i<desktops.length; i++) {
-  var d = desktops[i];
-  d.wallpaperPlugin = 'org.kde.image';
-  d.currentConfigGroup = ['Wallpaper','org.kde.image','General'];
-  d.writeConfig('Image', 'file://$WALLPAPER');
-}"
+echo "Installing Layan Plasma global theme from $LAYAN_DIR..."
+LAYAN_LOOKFEEL_DIR="$SCRIPT_DIR/look-and-feel/com.github.vinceliuice.Layan"
+LAYAN_PLASMA_DIR="$SCRIPT_DIR/desktoptheme/Layan"
+LOOKFEEL_DIR="$HOME/.local/share/plasma/look-and-feel"
+PLASMA_DIR="$HOME/.local/share/plasma/desktoptheme"
+[[ ! -d ${PLASMA_DIR} ]] && mkdir -p ${PLASMA_DIR}
+[[ ! -d ${LOOKFEEL_DIR} ]] && mkdir -p ${LOOKFEEL_DIR}
+cp -rf "$LAYAN_LOOKFEEL_DIR" "$LOOKFEEL_DIR"
+cp -rf "$LAYAN_PLASMA_DIR" "$PLASMA_DIR"
 
 echo ">>> Setup complete!"
 echo ">>> Recommended: Reboot your system."
