@@ -46,7 +46,6 @@ fi
 
 echo "Installing essential packages..."
 sudo dnf install -y git wget curl stow
-sudo dnf install -y nvim tmux
 sudo dnf install -y kvantum kf5-plasma
 sudo dnf install -y fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool fcitx5-mozc
 
@@ -108,6 +107,10 @@ for (i=0;i<desktops.length;i++) {
   d.writeConfig('Image', 'file://$WALLPAPER');
 }
 "
+
+echo "Installing packages for neovim"
+sudo dnf install -y nvim tmux
+sudo dnf install -y lua5.1 luarocks
 
 echo ">>> Setup complete!"
 echo ">>> Recommended: Reboot your system."
