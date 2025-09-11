@@ -5,22 +5,26 @@ set -e
 
 # --- Detect script directory ---
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-echo "Script directory detected as: $SCRIPT_DIR"
+echo -e "Script directory detected as: $SCRIPT_DIR\n"
 
 echo ">>> Updating system..."
 sudo dnf -y upgrade --refresh
+echo -e "--------------------\n"
 
 echo ">>> Enabling RPM Fusion (Free + Non-Free)..."
 sudo dnf -y install \
   https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
   https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+echo -e "--------------------\n"
 
 echo "Adding Flathub repository..."
 sudo dnf -y install flatpak
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+echo -e "--------------------\n"
 
 echo ">>> Installing core multimedia codecs..."
 sudo dnf -y install libavcodec-freeworld --allowerasing
+echo -e "--------------------\n"
 
 echo ">>> Detecting GPU..."
 GPU_INFO=$(lspci | grep -i "vga\|3d\|2d")
@@ -43,11 +47,14 @@ elif echo "$GPU_INFO" | grep -qi amd; then
 else
     echo ">>> No supported GPU detected. Skipping GPU driver install."
 fi
+echo -e "--------------------\n"
 
 echo "Installing essential packages..."
-sudo dnf install -y git wget curl stow
-sudo dnf install -y kvantum kf5-plasma
-sudo dnf install -y fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool fcitx5-mozc
+sudo dnf install -y \
+    git wget curl stow \
+    kvantum kf5-plasma \
+    fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool fcitx5-mozc
+echo -e "--------------------\n"
 
 echo "Installing Plasma applets..."
 PLASMOID_DIR="$SCRIPT_DIR/plasma/plasmoids"
@@ -57,6 +64,7 @@ if [ -d "$PLASMOID_DIR" ]; then
         plasmapkg2 --install "$file" || echo "Failed to install $file"
     done
 fi
+echo -e "--------------------\n"
 
 echo "Installing Layan Plasma global theme from $LAYAN_DIR..."
 LAYAN_LOOKFEEL_DIR="$SCRIPT_DIR/plasma/look-and-feel/com.github.vinceliuice.Layan"
@@ -75,21 +83,26 @@ cp -rf "$LAYAN_LOOKFEEL_DIR" "$LOOKFEEL_DIR"
 cp -rf "$LAYAN_PLASMA_DIR" "$PLASMA_DIR"
 cp -rf "$LAYAN_AURORAE_DIR" "$AURORAE_DIR"
 cp -rf "$TELA_ICON_DIR" "$ICON_DIR"
+echo -e "--------------------\n"
 
 echo "Adding wallpaper..."
 WALLPAPER_DIR="$HOME/.local/share/wallpapers"
 WALLPAPER="$WALLPAPER_DIR/DaydreamSkytrain.png"
 mkdir -p "$WALLPAPER_DIR"
 cp -f "$SCRIPT_DIR/wallpapers/DaydreamSkytrain.png" "$WALLPAPER"
+echo -e "--------------------\n"
 
 PLASMA_SCRIPT=$(sed \
   -e "s|__WALLPAPER_PATH__|$WALLPAPER|" \
   "$SCRIPT_DIR/plasma-setup.js.in")
 qdbus-qt6 org.kde.plasmashell /PlasmaShell evaluateScript "$PLASMA_SCRIPT"
+echo -e "--------------------\n"
 
 echo "Installing packages for neovim"
-sudo dnf install -y nvim tmux
-sudo dnf install -y lua5.1 luarocks
+sudo dnf install -y \
+    nvim tmux \
+    lua5.1 luarocks
+echo -e "--------------------\n"
 
 echo ">>> Setup complete!"
 echo ">>> Recommended: Reboot your system."
