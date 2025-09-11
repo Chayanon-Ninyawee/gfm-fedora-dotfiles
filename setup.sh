@@ -76,37 +76,16 @@ cp -rf "$LAYAN_PLASMA_DIR" "$PLASMA_DIR"
 cp -rf "$LAYAN_AURORAE_DIR" "$AURORAE_DIR"
 cp -rf "$TELA_ICON_DIR" "$ICON_DIR"
 
-echo "Setting widgets for all desktops..."
-qdbus-qt6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
-var allDesktops = desktops();
-for (var i = 0; i < allDesktops.length; i++) {
-    var desktop = allDesktops[i];
-
-    // Check if mediacontroller already exists
-    var widgets = desktop.widgets('org.kde.plasma.mediacontroller');
-    if (widgets.length == 0) {
-        var widget = desktop.addWidget('org.kde.plasma.mediacontroller', 1280, 16, 640, 192);
-        widget.currentConfigGroup = ['General'];
-    }
-}
-"
-
-echo "Setting wallpaper for all desktops..."
-SCRIPT_WALLPAPER="$SCRIPT_DIR/wallpapers/DaydreamSkytrain.png"
+echo "Adding wallpaper..."
 WALLPAPER_DIR="$HOME/.local/share/wallpapers"
 WALLPAPER="$WALLPAPER_DIR/DaydreamSkytrain.png"
-[[ ! -d ${WALLPAPER_DIR} ]] && mkdir -p ${WALLPAPER_DIR}
-cp -f "$SCRIPT_WALLPAPER" "$WALLPAPER_DIR"
+mkdir -p "$WALLPAPER_DIR"
+cp -f "$SCRIPT_DIR/wallpapers/DaydreamSkytrain.png" "$WALLPAPER"
 
-qdbus-qt6 org.kde.plasmashell /PlasmaShell evaluateScript "
-var desktops = desktops();
-for (i=0;i<desktops.length;i++) {
-  var d = desktops[i];
-  d.wallpaperPlugin = 'org.kde.image';
-  d.currentConfigGroup = ['Wallpaper','org.kde.image','General'];
-  d.writeConfig('Image', 'file://$WALLPAPER');
-}
-"
+PLASMA_SCRIPT=$(sed \
+  -e "s|__WALLPAPER_PATH__|$WALLPAPER|" \
+  "$SCRIPT_DIR/plasma-setup.js.in")
+qdbus-qt6 org.kde.plasmashell /PlasmaShell evaluateScript "$PLASMA_SCRIPT"
 
 echo "Installing packages for neovim"
 sudo dnf install -y nvim tmux

@@ -1,0 +1,25 @@
+print("Configuring Plasma...");
+
+var allDesktops = desktops();
+
+// --- Add media controller if missing ---
+for (var i = 0; i < allDesktops.length; i++) {
+    var desktop = allDesktops[i];
+
+    // Check if mediacontroller already exists
+    var widgets = desktop.widgets("org.kde.plasma.mediacontroller");
+    if (widgets.length === 0) {
+        var widget = desktop.addWidget("org.kde.plasma.mediacontroller", 1280, 16, 640, 192);
+        widget.currentConfigGroup = ["General"];
+    }
+}
+
+// --- Set wallpaper ---
+var wallpaper = "file://__WALLPAPER_PATH__";
+
+for (var i = 0; i < allDesktops.length; i++) {
+    var d = allDesktops[i];
+    d.wallpaperPlugin = "org.kde.image";
+    d.currentConfigGroup = ["Wallpaper", "org.kde.image", "General"];
+    d.writeConfig("Image", wallpaper);
+}
