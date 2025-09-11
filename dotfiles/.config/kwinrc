@@ -1,5 +1,5 @@
 [Activities][LastVirtualDesktop]
-eef7f695-2299-4d6b-b9b1-8c54a84c2b62=1a51b3b1-1643-40ee-9f1d-5cb442d53448
+eef7f695-2299-4d6b-b9b1-8c54a84c2b62=d669bcd6-35ba-4f68-bee3-09ff964fc9ab
 
 [Desktops]
 Id_1=d669bcd6-35ba-4f68-bee3-09ff964fc9ab
@@ -17,6 +17,9 @@ Rows=3
 [Effect-blur]
 BlurStrength=7
 NoiseStrength=3
+
+[Effect-overview]
+BorderActivate=9
 
 [Plugins]
 magnifierEnabled=true
