@@ -108,6 +108,9 @@ echo "Installing JetBrains Mono Nerd Font..."
 mkdir -p ~/.local/share/fonts
 cd ~/.local/share/fonts
 
+echo "Installing Microsoft core fonts (Times New Roman)..."
+sudo dnf install -y microsoft-fonts
+
 curl -fLo "JetBrainsMono Nerd Font Complete.zip" \
     https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
 
@@ -202,7 +205,8 @@ echo -e "--------------------\n"
 echo "Installing system packages for LSPs and providers..."
 sudo dnf install -y \
     rust-analyzer \
-    nodejs-bash-language-server
+    nodejs-bash-language-server \
+    zathura-pdf-mupdf texlive-scheme-full
 echo -e "--------------------\n"
 
 echo "Installing Python-based LSPs and providers..."
