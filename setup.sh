@@ -6,6 +6,7 @@ set -e
 # --- Detect script directory ---
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 echo -e "Script directory detected as: $SCRIPT_DIR\n"
+cd "$SCRIPT_DIR"
 
 echo ">>> Updating system..."
 sudo dnf -y upgrade --refresh
@@ -101,6 +102,21 @@ echo -e "--------------------\n"
 echo "Installing Ghostty..."
 sudo dnf copr enable scottames/ghostty -y
 sudo dnf install -y ghostty
+echo -e "--------------------\n"
+
+echo "Installing JetBrains Mono Nerd Font..."
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts
+
+curl -fLo "JetBrainsMono Nerd Font Complete.zip" \
+    https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+
+unzip -o JetBrainsMono\ Nerd\ Font\ Complete.zip -d JetBrainsMonoNerdFontMono/
+
+# Refresh font cache
+fc-cache -fv
+
+cd "$SCRIPT_DIR"
 echo -e "--------------------\n"
 
 echo "Installing Go..."
