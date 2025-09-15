@@ -257,5 +257,11 @@ switch to next activity=none,,Switch to Next Activity
 switch to previous activity=none,,Switch to Previous Activity
 toggle do not disturb=none,,Toggle do not disturb
 
+[services][com.mitchellh.ghostty.desktop]
+_launch=Ctrl+Alt+T
+
 [services][org.kde.kdeconnect.app.desktop]
 _launch=Meta+C
+
+[services][org.kde.konsole.desktop]
+_launch=none

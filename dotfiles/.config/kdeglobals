@@ -139,6 +139,8 @@ Splitter State=\x00\x00\x00\xff\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x8c\
 
 [General]
 ColorSchemeHash=625c32ae46f33771aca7694ab0deae5a44bbf41c
+TerminalApplication=ghostty
+TerminalService=com.mitchellh.ghostty.desktop
 
 [KDE]
 DndBehavior=MoveIfSameDevice
