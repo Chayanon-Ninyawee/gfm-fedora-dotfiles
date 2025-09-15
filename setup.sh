@@ -124,13 +124,13 @@ else
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-echo "Installing pipx via Homebrew..."
-brew install pipx
-echo -e "--------------------\n"
-
 echo "Verifying brew installation..."
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 brew --version
+echo -e "--------------------\n"
+
+echo "Installing pipx via Homebrew..."
+brew install pipx
 echo -e "--------------------\n"
 
 echo "Installing packages for neovim..."
