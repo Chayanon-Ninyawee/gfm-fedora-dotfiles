@@ -13,8 +13,8 @@ echo -e "--------------------\n"
 
 echo ">>> Enabling RPM Fusion (Free + Non-Free)..."
 sudo dnf -y install \
-  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 echo -e "--------------------\n"
 
 echo "Adding Flathub repository..."
@@ -93,15 +93,112 @@ cp -f "$SCRIPT_DIR/wallpapers/DaydreamSkytrain.png" "$WALLPAPER"
 echo -e "--------------------\n"
 
 PLASMA_SCRIPT=$(sed \
-  -e "s|__WALLPAPER_PATH__|$WALLPAPER|" \
-  "$SCRIPT_DIR/plasma-setup.js.in")
+        -e "s|__WALLPAPER_PATH__|$WALLPAPER|" \
+    "$SCRIPT_DIR/plasma-setup.js.in")
 qdbus-qt6 org.kde.plasmashell /PlasmaShell evaluateScript "$PLASMA_SCRIPT"
 echo -e "--------------------\n"
 
-echo "Installing packages for neovim"
+echo "Installing dependencies for Homebrew..."
+sudo dnf install -y \
+    curl \
+    git \
+    file \
+    bzip2 \
+    gzip \
+    xz \
+    sudo \
+    make \
+    gcc \
+    glibc-devel \
+    libffi-devel \
+    bison \
+    zlib-devel \
+    readline-devel \
+    which
+echo -e "--------------------\n"
+
+if command -v brew >/dev/null 2>&1; then
+    echo "Homebrew already installed. Skipping installation."
+else
+    echo "Installing Homebrew..."
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+echo "Installing pipx via Homebrew..."
+brew install pipx
+echo -e "--------------------\n"
+
+echo "Verifying brew installation..."
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+brew --version
+echo -e "--------------------\n"
+
+echo "Installing packages for neovim..."
 sudo dnf install -y \
     nvim tmux \
-    lua5.1 luarocks
+    lua5.1 luarocks \
+    python3-pip \
+    nodejs npm \
+    rust cargo
+
+sudo npm install -g neovim
+pipx install pynvim
+echo -e "--------------------\n"
+
+echo "Installing system packages for formatters..."
+sudo dnf install -y \
+    python3-black \
+    python3-isort \
+    clang-tools-extra \
+    texlive-latexindent-bin \
+    rustfmt
+echo -e "--------------------\n"
+
+echo "Installing Python-based formatters..."
+pipx install \
+    beautysh \
+    cmakelang \
+    mdformat
+echo -e "--------------------\n"
+
+echo "Installing Node.js-based formatters..."
+sudo npm install -g \
+    prettier \
+    markdown-toc
+echo -e "--------------------\n"
+
+echo "Installing Cargo-based formatter (stylua)..."
+cargo install stylua || true
+echo -e "--------------------\n"
+
+echo "Installing system packages for LSPs and providers..."
+sudo dnf install -y \
+    rust-analyzer \
+    nodejs-bash-language-server
+echo -e "--------------------\n"
+
+echo "Installing Python-based LSPs and providers..."
+pipx install \
+    python-lsp-server \
+    pynvim \
+    ruff \
+    cmake-language-server
+echo -e "--------------------\n"
+
+echo "Installing Node.js-based LSPs..."
+sudo npm install -g \
+    vscode-langservers-extracted \
+    yaml-language-server
+echo -e "--------------------\n"
+
+echo "Installing Cargo-based LSPs..."
+cargo install stylua || true
+echo -e "--------------------\n"
+
+echo "Installing LSPs via Homebrew..."
+brew install ltex-ls
+brew install lua-language-server
+brew install texlab
 echo -e "--------------------\n"
 
 echo ">>> Setup complete!"
