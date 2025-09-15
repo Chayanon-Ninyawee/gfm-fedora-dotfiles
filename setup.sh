@@ -98,6 +98,11 @@ PLASMA_SCRIPT=$(sed \
 qdbus-qt6 org.kde.plasmashell /PlasmaShell evaluateScript "$PLASMA_SCRIPT"
 echo -e "--------------------\n"
 
+echo "Installing Ghostty..."
+sudo dnf copr enable scottames/ghostty -y
+sudo dnf install -y ghostty
+echo -e "--------------------\n"
+
 echo "Installing Go..."
 sudo dnf install -y golang
 export PATH="$HOME/go/bin:$PATH"  # ensure Go binaries are in PATH
