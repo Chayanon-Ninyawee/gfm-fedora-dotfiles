@@ -142,7 +142,6 @@ sudo dnf install -y \
     rust cargo
 
 sudo npm install -g neovim
-pipx install pynvim
 echo -e "--------------------\n"
 
 echo "Installing system packages for formatters..."
