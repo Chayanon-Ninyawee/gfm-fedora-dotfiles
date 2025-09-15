@@ -98,6 +98,11 @@ PLASMA_SCRIPT=$(sed \
 qdbus-qt6 org.kde.plasmashell /PlasmaShell evaluateScript "$PLASMA_SCRIPT"
 echo -e "--------------------\n"
 
+echo "Installing Go..."
+sudo dnf install -y golang
+export PATH="$HOME/go/bin:$PATH"  # ensure Go binaries are in PATH
+echo -e "--------------------\n"
+
 echo "Installing dependencies for Homebrew..."
 sudo dnf install -y \
     curl \
@@ -137,9 +142,12 @@ echo "Installing packages for neovim..."
 sudo dnf install -y \
     nvim tmux \
     lua5.1 luarocks \
+    fzf fd-find \
     python3-pip \
     nodejs npm \
     rust cargo
+
+go install github.com/jesseduffield/lazygit@latest
 
 sudo npm install -g neovim
 echo -e "--------------------\n"
