@@ -104,13 +104,13 @@ sudo dnf copr enable scottames/ghostty -y
 sudo dnf install -y ghostty
 echo -e "--------------------\n"
 
-echo "Installing JetBrains Mono Nerd Font..."
-mkdir -p ~/.local/share/fonts
-cd ~/.local/share/fonts
-
 echo "Installing Microsoft core fonts (Times New Roman)..."
 cd "$SCRIPT_DIR"
 sudo dnf install -y ./webcore-fonts-3.0-1.noarch.rpm
+
+echo "Installing JetBrains Mono Nerd Font..."
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts
 
 curl -fLo "JetBrainsMono Nerd Font Complete.zip" \
     https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
